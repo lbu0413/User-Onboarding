@@ -2,35 +2,39 @@ import React, { useState } from 'react';
 
 
 
-const initialFormValues ={
-    name: '',
-    email: '',
-    password: '',
-    tos: false,
-  }
+
 
 
 export default function Form(props){
 
-    const { values, submit, change } = props;
-    const [formValues, setFormValues] = useState(initialFormValues)
+    const { users, setUsers, values, setValues } = props;
+    
 
     const onChange = evt => {
         const { name, value, type, checked } = evt.target
+        setValues({...values, [name]: value})
         
-        const valueToUse = type === 'checkbox' ? checked : value;
-        change(name, valueToUse)
+        // const valueToUse = type === 'checkbox' ? checked : value;
+        // change(name, valueToUse)
     }
 
     const onSubmit = evt => {
         evt.preventDefault()
-        submit()
-        const newMember = {
+        // setValues(initialFormValues);
+        const newForm = {
             name: values.name.trim(),
             email: values.email.trim(),
-            tos: values.tos
+            tos: values.tos,
         }
+        setUsers({...users, newForm});
+        
+        
     }
+    // const newUsers = {
+    //     name: values.name.trim(),
+    //     email: values.email.trim(),
+    //     tos: values.tos
+    // }
 
 
     return(
@@ -41,8 +45,8 @@ export default function Form(props){
                 <input 
                     type='text'
                     name='name'
-                    value={formValues.name}
-                    onchange={onChange}
+                    value={values.name}
+                    onChange={onChange}
                     
                 />
                 
@@ -54,8 +58,8 @@ export default function Form(props){
                 <input 
                     type='email'
                     name='email'
-                    value={formValues.email}
-                    onchange={onChange}
+                    value={values.email}
+                    onChange={onChange}
 
                 />
             </label>
@@ -66,8 +70,8 @@ export default function Form(props){
                 <input 
                     type='password'
                     name='password'
-                    value={formValues.password}
-                    onchange={onChange}
+                    value={values.password}
+                    onChange={onChange}
 
                 />
             </label>
@@ -78,8 +82,8 @@ export default function Form(props){
                 <input
                     type='checkbox'
                     name='TOS'
-                    checked={formValues.tos}
-                    onchange={onChange}
+                    checked={values.tos}
+                    onChange={onChange}
 
                 />
             </label>
