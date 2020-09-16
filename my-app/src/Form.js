@@ -20,12 +20,6 @@ export default function Form(props){
 
     const onSubmit = evt => {
         evt.preventDefault()
-        // setValues(initialFormValues);
-        const newForm = {
-            name: values.name.trim(),
-            email: values.email.trim(),
-            tos: values.tos,
-        }
         setUsers({...users, newForm});
         
         

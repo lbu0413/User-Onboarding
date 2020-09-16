@@ -12,18 +12,22 @@ const initialFormValues ={
   tos: false,
 }
 
-const initialFormErros ={
+const initialFormErrors ={
   name: '',
   email:'',
   password:'',
 }
 
+const initialForm = []
+const initialDisabled = true;
 
- 
 function App() {
 
   const [users, setUsers] = useState({})  
   const [formValues, setFormValues] = useState(initialFormValues)
+  const [formErrors, setFormErrors] = useState(initialFormErrors)
+  const [disabled, setDisabled] = useState(initialDisabled)
+  const [form, setForm] = useState(initialForm);
 
 
   return (
@@ -33,6 +37,8 @@ function App() {
         setUsers={setUsers}
         values={formValues}
         setValues={setFormValues}
+        errors={formErrors}
+        disabled={disabled}
         />
     </div>
   );
