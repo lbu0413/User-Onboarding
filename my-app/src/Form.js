@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 export default function Form(props){
 
-    const { users, setUsers, values, setValues, submit, change, errors } = props;
+    const { users, setUsers, values, setValues, submit, change, errors, disabled } = props;
     
 
     const onChange = evt => {
@@ -79,7 +79,7 @@ export default function Form(props){
                 <input
                     type='checkbox'
                     name='TOS'
-                    checked={values.tos}
+                    value={values.tos}
                     onChange={onChange}
 
                 />
@@ -87,7 +87,7 @@ export default function Form(props){
             </div>
             <br/>
             <div>
-            <button>Submit</button>
+            <button disabled={disabled}>Submit</button>
             </div>
         </form>
     )
