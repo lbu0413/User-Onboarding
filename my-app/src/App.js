@@ -32,10 +32,10 @@ function App() {
   const getUsers = () => {
     axios.get('https://reqres.in/api/users')
       .then(res => {
-        setUsers(res.data)
+        setUsers(res.data.data)
       })
       .catch(err => {
-        debugger
+        debugger 
       })
   }
 
@@ -104,6 +104,7 @@ function App() {
 
   return (
     <div className="App">
+      
       <Form 
         users={users} 
         // setUsers={setUsers}
@@ -114,6 +115,9 @@ function App() {
         change={inputChange}
         submit={formSubmit}
         />
+        
+        
+       
     </div>
   );
 }
