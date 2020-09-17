@@ -18,16 +18,25 @@ const initialFormErrors ={
   password:'',
 }
 
-const initialForm = []
+const initialUsers = []
 const initialDisabled = true;
 
 function App() {
 
-  const [users, setUsers] = useState({})  
+  const [users, setUsers] = useState(initialUsers)  
   const [formValues, setFormValues] = useState(initialFormValues)
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
-  const [form, setForm] = useState(initialForm);
+ 
+  const getUsers = () => {
+    axios.get('https://reqres.in/api/users')
+      .then(res => {
+        setUsers(res.data)
+      })
+      .catch(err => {
+        debugger
+      })
+  }
 
 
   return (
