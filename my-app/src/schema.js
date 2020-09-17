@@ -7,6 +7,9 @@ export default yup.object().shape({
     email: yup.string()
         .email('Must be a valid email')
         .required('email is required'),
-    tos: yup.boolean(),
+    password: yup.string()
+        .required('password is required')
+        .min(6, 'password must be 6 or longer'),
+    tos: yup.boolean()
 
 })

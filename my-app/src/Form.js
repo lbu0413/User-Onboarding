@@ -7,32 +7,35 @@ import React, { useState } from 'react';
 
 export default function Form(props){
 
-    const { users, setUsers, values, setValues } = props;
+    const { users, setUsers, values, setValues, submit, change, errors } = props;
     
 
     const onChange = evt => {
         const { name, value, type, checked } = evt.target
         setValues({...values, [name]: value})
         
-        // const valueToUse = type === 'checkbox' ? checked : value;
-        // change(name, valueToUse)
+        const valueToUse = type === 'checkbox' ? checked : value;
+        change(name, valueToUse)
     }
 
     const onSubmit = evt => {
         evt.preventDefault()
-        setUsers({...users, newForm});
+        submit()
         
         
     }
-    // const newUsers = {
-    //     name: values.name.trim(),
-    //     email: values.email.trim(),
-    //     tos: values.tos
-    // }
+  
 
 
     return(
+        
+
         <form onSubmit={onSubmit}>
+            <div>{errors.name}</div>
+            <div>{errors.email}</div>
+            <div>{errors.password}</div>
+            <div>{errors.tos}</div>
+
             <br/>
             <div>
             <label>Name : 

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Form from './Form';
 import axios from 'axios';
 import * as yup from 'yup';
+import schema from './schema';
 
 const initialFormValues ={
   name: '',
@@ -38,6 +39,68 @@ function App() {
       })
   }
 
+  const postUser = newUser => {
+    axios.post("https://reqres.in/api/users", newUser)
+      .then(res => {
+        setUsers([...users, res.data])
+        setFormValues(initialFormValues)
+      })
+      .catch(err => {
+        debugger
+      })
+      .finally(() => {
+
+      })
+  }
+  
+  const validate = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(valid => {
+        setFormErrors({
+          ...formErrors, [name]: ""
+        })
+      })
+      .catch(err => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0]
+        });
+      })
+  }
+
+  const inputChange = (name, value) => {
+    validate(name, value)
+    setFormValues({
+      ...formValues,
+      [name]: value
+    })
+  }
+
+  const formSubmit = () => {
+    const newUser = {
+      name: formValues.name.trim(),
+      email: formValues.email.trim(),
+      tos: formValues.tos,
+    }
+
+    postUser(newUser)
+  }
+
+
+
+
+  useEffect(() => {
+    getUsers()
+  },[])
+
+  useEffect(() => {
+    schema.isValid(formValues)
+      .then(valid => {
+        setDisabled(!valid)
+      })
+  },[formValues])
 
   return (
     <div className="App">
@@ -48,6 +111,8 @@ function App() {
         setValues={setFormValues}
         errors={formErrors}
         disabled={disabled}
+        change={inputChange}
+        submit={formSubmit}
         />
     </div>
   );
